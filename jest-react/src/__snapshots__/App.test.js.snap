@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders without crashing 1`] = `
+<App>
+  <div
+    className="app-container"
+    data-test="container"
+    title="dell lee"
+  >
+    Hello World !
+  </div>
+</App>
+`;
