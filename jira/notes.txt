@@ -1,0 +1,36 @@
+1. yarn.lock : 精确锁定版本号
+2. robots.txt : 应对搜索引擎的爬虫
+3. manifest.json : PWA相关的内容
+4. reportWebVitals : 性能埋点上报
+5. setupTests: 配置单元测试
+6. npx: 可以让你直接使用 npm中的包，而不用全局安装
+
+------------------------------------------------
+
+配置TS文件的相对路径：
+  找到tsconfig.json的 compilerOptions, 添加一项 "baseUrl": "./src"
+
+配置prettier:
+  1. install prettier的包
+  2. echo {}> .prettierrc.json （echo 就是新建文件的意思）
+  3. 新建 prettier.ignore 文件，指的是不需要格式化的文件
+  4. 配置自动格式化，就要借助于pre-commit hook：在我们的代码每次提交之前，就自动的对代码进行格式化 npx mrm lint-staged
+    husky是用来管理pre-commit的工具。 lint-staged里面有一项是管理文件扩展名的配置（加上 ts和tsx）
+  5. 解决ESLint和Prettier的冲突
+  6. 在 eslintConfig的extends里面的extends添加"prettier"， 表示我们用prettier的规则替代了一部分eslint的规则
+
+规范commit message, 要用 commitlint工具
+
+------------------------------------------------
+
+配置JSON SERVER https://github.com/typicode/json-server
+  在项目的根路径新建 __json_server_mock__ 文件夹， 前后的两个__ 是告诉看我们这个代码的人，这个文件夹和项目没有什么关系，仅仅是用来辅助的
+
+在项目中可以不引用React了
+  plugin-transform-react-jsx 发布了新版本，从 v7.9.0 开始，就不用手动引入 React 了
+  https://coding.imooc.com/lesson/482.html#mid=41564
+
+
+------------------------------------------------
+当运行 npm start的时候， webpack就会读 .env.development中的变量
+当运行 npm run build 的时候， webpack就会读 .env中的变量
