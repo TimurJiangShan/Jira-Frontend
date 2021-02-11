@@ -1,3 +1,5 @@
+const apiUrl = process.env.REACT_APP_API_URL;
+
 export const SearchPanel = () => {
   /*
     1. 当用户在input框输入值或者选择select框的时候， param变化
@@ -14,7 +16,7 @@ export const SearchPanel = () => {
   const [list, setList] = React.useState([]);
 
   React.useEffect(() => {
-    fetch().then(async (response) => {
+    fetch(`${apiUrl}/posts`).then(async (response) => {
       if (response.ok) {
         setList(await response.json());
       }
