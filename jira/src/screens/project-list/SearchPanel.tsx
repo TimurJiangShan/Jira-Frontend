@@ -1,5 +1,14 @@
 import React from "react";
 const apiUrl = process.env.REACT_APP_API_URL;
+
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  title: string;
+  organization: string;
+  token: string;
+}
 export const SearchPanel = () => {
   /*
     1. 当用户在input框输入值或者选择select框的时候， param变化
@@ -25,7 +34,7 @@ export const SearchPanel = () => {
 
   return (
     <form>
-      <div>
+      {/* <div>
         <input
           type="text"
           value={param.name}
@@ -49,7 +58,7 @@ export const SearchPanel = () => {
             <option value={user.id}>{user.name}</option>
           ))}
         </select>
-      </div>
+      </div> */}
     </form>
   );
 };
