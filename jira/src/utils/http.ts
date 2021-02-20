@@ -54,6 +54,33 @@ export const http = async (
 // 如果要使用其他hook的话，那么那个函数本身就得是一个hook
 export const useHttp = () => {
   const { user } = useAuth();
+
+  // Utility type的用法： 用泛型给它传入一个其他类型， 然后utility type对这个类型进行某种操作
   return (...[endpoint, config]: Parameters<typeof http>) =>
     http(endpoint, { ...config, token: user?.token });
 };
+
+// JS 中的typeof是在 Runtime的时候运行
+// TS 中的typeof类型定义是在 静态的时候运行的
+
+// 类型别名 type, interface 在这种情况下没法代替 type
+type FavoriteNumber = string | number;
+let roseFavoriteNumber: FavoriteNumber = "12d";
+
+type Person = {
+  name: string;
+  age: number;
+};
+
+// 当我们想部分实现Person这个类型，而且在不改动原本Person代码的情况下，用Partial
+// const xiaoming: Person = { name: "小名" }; // 我现在只知道 name，不知道age
+
+const xiaoming: Partial<Person> = {};
+
+// 现在有一个神秘人， 只有age， 没有name。 要用到 Omit， 意思是把第一个参数中的某些类型删掉
+
+const shenmiren: Omit<Person, "name"> = {
+  age: 123,
+};
+
+const shenmirenMax: Omit<Person, "name" | "age"> = {}; // 可以在第二个参数里面使用联合类型
