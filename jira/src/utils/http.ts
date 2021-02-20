@@ -1,3 +1,4 @@
+import { useAuth } from "context/auth-context";
 import qs from "qs";
 import * as auth from "../auth-provider";
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -48,4 +49,11 @@ export const http = async (
         return Promise.reject(data);
       }
     });
+};
+
+// 如果要使用其他hook的话，那么那个函数本身就得是一个hook
+export const useHttp = () => {
+  const { user } = useAuth();
+  return (...[endpoint, config]: Parameters<typeof http>) =>
+    http(endpoint, { ...config, token: user?.token });
 };
