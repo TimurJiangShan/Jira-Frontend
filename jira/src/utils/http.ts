@@ -1,3 +1,5 @@
+import qs from "qs";
+import * as auth from "../auth-provider";
 const apiUrl = process.env.REACT_APP_API_URL;
 
 interface Config extends RequestInit {
@@ -18,5 +20,32 @@ export const http = async (
     ...customConfig,
   };
 
-  return window.fetch(``, config).then();
+  /*
+    1. 在 GET 请求里，所传的参数，在fetch的API里面是要带到URL里面的
+    2. 在 POST PATCH DELETE，是直接放在 Body 里面
+  */
+
+  if (config.method.toUpperCase() === "GET") {
+    endpoint += `?${qs.stringify(data)}`;
+  } else {
+    config.body = JSON.stringify(data || {});
+  }
+
+  // axios 和 fetch的行为不一样。在 axios里面，返回状态码不为2xx的时候，会在后面的catch里面抛出异常
+
+  return window
+    .fetch(`${apiUrl}/${endpoint}`, config)
+    .then(async (response) => {
+      if (response.status === 401) {
+        await auth.logout();
+        window.location.reload();
+        return Promise.reject({ message: "Please relogin" });
+      }
+      const data = await response.json();
+      if (response.ok) {
+        return data;
+      } else {
+        return Promise.reject(data);
+      }
+    });
 };
