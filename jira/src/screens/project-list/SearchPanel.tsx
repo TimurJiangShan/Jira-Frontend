@@ -1,3 +1,4 @@
+import { Form, Input } from "antd";
 import React from "react";
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -33,32 +34,21 @@ export const SearchPanel = () => {
   }, [param]);
 
   return (
-    <form>
-      {/* <div>
-        <input
+    <Form layout={"inline"}>
+      <Form.Item>
+        {/*setParam(Object.assign({}, param, {name:evt.target.value}))*/}
+        <Input
+          placeholder={"项目名"}
           type="text"
           value={param.name}
-          onChange={(event) =>
+          onChange={(evt) =>
             setParam({
               ...param,
-              name: event.target.value,
+              name: evt.target.value,
             })
           }
         />
-        <select
-          value={param.personId}
-          onChange={(event) =>
-            setParam({
-              ...param,
-              personId: event.param.value,
-            })
-          }
-        >
-          {users.map((user) => (
-            <option value={user.id}>{user.name}</option>
-          ))}
-        </select>
-      </div> */}
-    </form>
+      </Form.Item>
+    </Form>
   );
 };

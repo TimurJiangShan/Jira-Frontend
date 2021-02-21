@@ -6,6 +6,9 @@ import reportWebVitals from "./reportWebVitals";
 import { AppProviders } from "../src/context/index";
 import { loadDevTools } from "jira-dev-tool";
 
+// 在jira-dev-tool后面引入antd的less，然后覆盖掉原本的
+import "antd/dist/antd.less";
+
 loadDevTools(() =>
   ReactDOM.render(
     <React.StrictMode>

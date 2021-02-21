@@ -16,18 +16,6 @@ export const LoginScreen = () => {
     login({ username, password });
   };
 
-  // const login = (param: { username: string; password: string }) => {
-  //   fetch(`${apiUrl}/register`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   }).then(async (response) => {
-  //     if (response.ok) {
-  //     }
-  //   });
-  // };
-
   return (
     <form onSubmit={handleSubmit}>
       <div>{user ? `Login success! ${user.name}` : null}</div>
