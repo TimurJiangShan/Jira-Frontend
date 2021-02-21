@@ -84,3 +84,22 @@ const shenmiren: Omit<Person, "name"> = {
 };
 
 const shenmirenMax: Omit<Person, "name" | "age"> = {}; // 可以在第二个参数里面使用联合类型
+
+type PersonKeys = keyof Person;
+type PersonOnlyName = Pick<Person, "name">;
+type Age = Exclude<PersonKeys, "name">;
+
+// Omit 和 Exclude的区别： Omit操作键值对， Exclude 操作联合类型
+type Partial<T> = {
+  [P in keyof T]?: T[P];
+};
+
+/*
+T是一个联合类型（name | age）。
+T extends U : 先看  name， name是不是 U 的子集呢？ 是， 所以返回never。 extends相当于加了一个约束
+T extends U : 再看 age， age是不是 U 的子集呢？ 不是，所以返回age
+点击 Command + 看源码
+
+*/
+
+type Exclude<T, U> = T extends U ? never : T;
