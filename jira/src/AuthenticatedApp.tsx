@@ -2,6 +2,10 @@ import styled from "@emotion/styled";
 import React from "react";
 import { useAuth } from "./context/auth-context";
 import { Row } from "./components/lib";
+import { ProjectListScreen } from "./screens/project-list";
+// 操纵svg的方法， 转换成 ReactComponent
+import { ReactComponent as SoftwareLogo } from "./assets/software-logo.svg";
+import { Dropdown, Menu, Button } from "antd";
 
 /**
  * grid 和 flex 各自的应用场景
@@ -15,22 +19,34 @@ import { Row } from "./components/lib";
  */
 
 export const AuthenticatedApp = () => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
 
   return (
     <Container>
       <Header between={true}>
-        <HeaderLeft between={true}>
-          <Row>Logo</Row>
+        <HeaderLeft gap={true} between={true}>
+          <SoftwareLogo width={"18rem"} color={"rgb(38, 132, 255)"} />
           <Row>Project</Row>
           <Row>User</Row>
         </HeaderLeft>
         <HeaderRight>
-          <button onClick={logout}>Logout</button>
+          <Dropdown
+            overlay={
+              <Menu>
+                <Menu.Item key={"logout"}>
+                  <Button onClick={logout} type={"link"}>
+                    Logout
+                  </Button>
+                </Menu.Item>
+              </Menu>
+            }
+          >
+            <a onClick={(e) => e.preventDefault()}>Hi, {user?.name}</a>
+          </Dropdown>
         </HeaderRight>
       </Header>
       <Main>
-        <div>Welcome</div>
+        <ProjectListScreen />
       </Main>
     </Container>
   );
@@ -42,7 +58,11 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-const Header = styled(Row)``;
+const Header = styled(Row)`
+  padding: 3.2rem;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+  z-index: 1;
+`;
 
 const HeaderLeft = styled(Row)``;
 const HeaderRight = styled(Row)``;
