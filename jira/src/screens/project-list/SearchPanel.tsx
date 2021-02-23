@@ -10,6 +10,7 @@ export interface User {
   organization: string;
   token: string;
 }
+
 export const SearchPanel = () => {
   /*
     1. 当用户在input框输入值或者选择select框的时候， param变化
