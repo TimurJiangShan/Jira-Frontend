@@ -1,13 +1,9 @@
 import { jsx } from "@emotion/react";
 import { Form, Input, Select } from "antd";
 import React from "react";
-import { Project } from "./List";
-import { useMount, useDebounce, cleanObject } from "../../utils/index";
-import qs from "qs";
-const apiUrl = process.env.REACT_APP_API_URL;
 
 export interface User {
-  id: number;
+  id: string;
   name: string;
   email: string;
   title: string;

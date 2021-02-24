@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 export interface Project {
   id: number;
   name: string;
-  personId: number;
+  personId: string;
   pin: boolean;
   organization: string;
   created: number;
@@ -16,6 +16,7 @@ export interface Project {
 interface ListProps extends TableProps<Project> {
   users: User[];
   projects: Project[];
+  isLoading: boolean;
 }
 
 export const List = ({ users, projects, ...props }: ListProps) => {
