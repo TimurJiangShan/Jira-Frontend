@@ -15,12 +15,14 @@ export interface Project {
 
 interface ListProps extends TableProps<Project> {
   users: User[];
+  projects: Project[];
 }
 
-export const List = ({ users, ...props }: ListProps) => {
+export const List = ({ users, projects, ...props }: ListProps) => {
   return (
     <Table
       rowKey={"id"}
+      dataSource={projects}
       pagination={false}
       columns={[
         {

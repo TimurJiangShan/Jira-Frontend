@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import React from "react";
 import { useAuth } from "./context/auth-context";
 import { Row } from "./components/lib";
-import { ProjectListScreen } from "./screens/project-list";
+import { ProjectListScreen } from "./screens/projectList";
 // 操纵svg的方法， 转换成 ReactComponent
 import { ReactComponent as SoftwareLogo } from "./assets/software-logo.svg";
 import { Dropdown, Menu, Button } from "antd";
@@ -41,7 +41,9 @@ export const AuthenticatedApp = () => {
               </Menu>
             }
           >
-            <a onClick={(e) => e.preventDefault()}>Hi, {user?.name}</a>
+            <Button type={"link"} onClick={(e) => e.preventDefault()}>
+              Hi, {user?.name}
+            </Button>
           </Dropdown>
         </HeaderRight>
       </Header>

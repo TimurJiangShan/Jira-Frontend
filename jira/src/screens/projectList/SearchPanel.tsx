@@ -2,6 +2,8 @@ import { jsx } from "@emotion/react";
 import { Form, Input, Select } from "antd";
 import React from "react";
 import { Project } from "./List";
+import { useMount, useDebounce, cleanObject } from "../../utils/index";
+import qs from "qs";
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export interface User {
@@ -13,9 +15,14 @@ export interface User {
   token: string;
 }
 
+type Param = {
+  name: string;
+  personId: string;
+};
+
 interface SearchPanelProps {
   users: User[];
-  param: Partial<Pick<Project, "name" | "personId">>;
+  param: Param;
   setParam: (param: SearchPanelProps["param"]) => void;
 }
 
@@ -25,16 +32,6 @@ export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
     2. 当param变化的时候，去请求工程列表
     3. 如果 ok是true，说明请求成功了
   */
-
-  const [list, setList] = React.useState([]);
-
-  React.useEffect(() => {
-    fetch(`${apiUrl}/posts`).then(async (response) => {
-      if (response.ok) {
-        setList(await response.json());
-      }
-    });
-  }, [param]);
 
   return (
     // css 属性要先引入jsx

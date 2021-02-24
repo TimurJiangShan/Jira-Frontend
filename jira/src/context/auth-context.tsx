@@ -1,5 +1,5 @@
 import * as auth from "auth-provider";
-import { User } from "screens/project-list/SearchPanel";
+import { User } from "screens/projectList/SearchPanel";
 import React, { ReactNode } from "react";
 import { http } from "../utils/http";
 import { useMount } from "../utils/index";

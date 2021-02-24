@@ -4,6 +4,13 @@ export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
 
 export const isVoid = (value: unknown) =>
   value === undefined || value === null || value === "";
+
+/*
+  自定义hook要加use。 只要是hook，就不能再普通函数中运行
+  它只能在：  
+  1. 其他hook中运行
+  2. 组件中运行
+ */
 export const useMount = (callback: () => void) => {
   React.useEffect(() => {
     callback();
@@ -11,6 +18,7 @@ export const useMount = (callback: () => void) => {
 };
 
 // 在一个函数里，改变传入的对象本身是不好的
+// object: { [key: string]: unknown } 这样写可以清晰地表示：我想要的对象就是一个键值对，因为 object的范围很广，一个普通的函数也是对象
 export const cleanObject = (object: { [key: string]: unknown }) => {
   // Object.assign({}, object)
   const result = { ...object };
