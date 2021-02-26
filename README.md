@@ -27,12 +27,7 @@ yarn add
 
 ## 🔨 Usage
 
-#### Client Side
 
-```
-cd client
-yarn start
-```
 
 ## ⌨️ Development
 
