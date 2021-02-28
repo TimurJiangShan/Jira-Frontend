@@ -1,4 +1,4 @@
-import { Button, Card, Divider } from "antd";
+import { Button, Card, Divider, Typography } from "antd";
 import React from "react";
 import { LoginScreen } from "./Login";
 import { RegisterScreen } from "./Register";
@@ -9,6 +9,7 @@ import styled from "@emotion/styled";
 
 export const UnauthenticatedAPP = () => {
   const [isRegistered, setIsRegistered] = React.useState(false);
+  const [error, setError] = React.useState<Error | null>(null);
 
   return (
     <Container>
@@ -16,7 +17,15 @@ export const UnauthenticatedAPP = () => {
       <Background />
       <ShadowCard>
         <Title>{isRegistered ? "Please Login" : "Please Register"} </Title>
-        {isRegistered ? <LoginScreen /> : <RegisterScreen />} <Divider />
+        {error ? (
+          <Typography.Text type={"danger"}>{error.message}</Typography.Text>
+        ) : null}
+        {isRegistered ? (
+          <LoginScreen onError={setError} />
+        ) : (
+          <RegisterScreen onError={setError} />
+        )}
+        <Divider />
         <Button type="link" onClick={() => setIsRegistered(!isRegistered)}>
           {isRegistered
             ? "No Account? Register new account"
