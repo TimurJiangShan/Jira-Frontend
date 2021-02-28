@@ -1,5 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 
+interface KeyValueObject {
+  [key: string]: unknown;
+}
+
 export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
 
 export const isVoid = (value: unknown) =>
@@ -19,7 +23,7 @@ export const useMount = (callback: () => void) => {
 
 // 在一个函数里，改变传入的对象本身是不好的
 // object: { [key: string]: unknown } 这样写可以清晰地表示：我想要的对象就是一个键值对，因为 object的范围很广，一个普通的函数也是对象
-export const cleanObject = (object: { [key: string]: unknown }) => {
+export const cleanObject = (object: KeyValueObject) => {
   // Object.assign({}, object)
   const result = { ...object };
   Object.keys(result).forEach((key) => {
