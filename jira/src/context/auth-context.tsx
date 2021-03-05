@@ -3,6 +3,8 @@ import { User } from "screens/projectList/SearchPanel";
 import React, { ReactNode } from "react";
 import { http } from "../utils/http";
 import { useMount } from "../utils/index";
+import { useAsync } from "../utils/useAsync";
+import { FullPageLoading, FullPageError } from "../components/lib";
 
 const AuthContext = React.createContext<
   | {
@@ -42,7 +44,16 @@ const bootstrapUser = async () => {
 // 用useContext存储全局用户信息
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = React.useState<User | null>(null);
+  // const [user, setUser] = React.useState<User | null>(null);
+  const {
+    data: user,
+    error,
+    isLoading,
+    isIdle,
+    isError,
+    run,
+    setData: setUser,
+  } = useAsync<User | null>();
 
   // point free
   const login = (form: AuthForm) => auth.login(form).then(setUser);
@@ -53,8 +64,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   // 当页面加载的时候，调用bootstrapUser，
 
   useMount(() => {
-    bootstrapUser().then(setUser);
+    run(bootstrapUser());
   });
+
+  if (isIdle || isLoading) {
+    return <FullPageLoading />;
+  }
+
+  if (isError) {
+    return <FullPageError error={error} />;
+  }
+
   return (
     <AuthContext.Provider
       children={children}
