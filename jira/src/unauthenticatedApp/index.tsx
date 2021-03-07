@@ -6,10 +6,13 @@ import logo from "../assets/logo.svg";
 import left from "../assets/left.svg";
 import right from "../assets/right.svg";
 import styled from "@emotion/styled";
+import { useDocumentTitle } from "../utils";
 
 export const UnauthenticatedAPP = () => {
   const [isRegistered, setIsRegistered] = React.useState(false);
   const [error, setError] = React.useState<Error | null>(null);
+
+  useDocumentTitle("Please login to continue");
 
   return (
     <Container>
