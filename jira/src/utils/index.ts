@@ -72,3 +72,7 @@ export const useDocumentTitle = (title: string, keepOnUnmount = true) => {
     // 这里如果不用useRef，那么oldTitle在页面卸载时就永远是最新的title，无法保存最原始的title
   }, [title, keepOnUnmount]);
 };
+
+// 重置路由状态并刷新页面
+
+export const resetRoute = () => (window.location.href = window.location.origin);

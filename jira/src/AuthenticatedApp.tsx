@@ -7,8 +7,8 @@ import { ProjectScreen } from "./screens/project";
 // 操纵svg的方法， 转换成 ReactComponent
 import { ReactComponent as SoftwareLogo } from "./assets/software-logo.svg";
 import { Dropdown, Menu, Button } from "antd";
-import { Route, Routes } from "react-router";
-import { BrowserRouter as Router } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router";
+import { resetRoute } from "utils";
 
 /**
  * grid 和 flex 各自的应用场景
@@ -26,15 +26,14 @@ export const AuthenticatedApp = () => {
     <Container>
       <PageHeader />
       <Main>
-        <Router>
-          <Routes>
-            <Route path={"/projects"} element={<ProjectListScreen />} />
-            <Route
-              path={"/projects/:projectId/*"}
-              element={<ProjectScreen />}
-            />
-          </Routes>
-        </Router>
+        <Routes>
+          <Route path={"/projects"} element={<ProjectListScreen />} />
+          <Route
+            path={"/projects/:projectId/*"} // 冒号代表后面跟的是变量
+            element={<ProjectScreen />}
+          />
+          <Navigate to={"/projects"} />
+        </Routes>
       </Main>
     </Container>
   );
@@ -46,7 +45,9 @@ const PageHeader = () => {
   return (
     <Header between={true}>
       <HeaderLeft gap={true} between={true}>
-        <SoftwareLogo width={"18rem"} color={"rgb(38,132,255)"} />
+        <Button type="link" onClick={resetRoute}>
+          <SoftwareLogo width={"18rem"} color={"rgb(38,132,255)"} />
+        </Button>
         <Row>Project</Row>
         <Row>User</Row>
       </HeaderLeft>
